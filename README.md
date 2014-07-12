@@ -3,6 +3,68 @@ identityJS
 
 strict equality &amp; identity checking of javascript types
 
+Usage
+=====
+```javascript
+// strings
+identity('test', 'test') 					//true
+identity('test', 'fail')					//false
+		
+//boolean
+identity(true, true) 						//true
+identity(false, false)						//true
+identity(true, false)						//false
+
+//function
+identity(
+	function() { console.log('test'); }, 
+	function() { console.log('test'); }
+)											//true
+
+identity(
+	function() { console.log('test'); }, 
+	function() { }
+)											//false
+
+//array
+identity(
+	[1,2,3, [4,5,6]], 
+	[1,2,3, [4,5,6]]
+)											//true
+
+identity(
+	[1,2,3], 
+	[4,5,6]
+)											//false
+
+//object
+identity({ 
+	'a': 2,
+	'b': { 
+		'a' : 2, 
+		'c': function() { } 
+	}
+}, { 
+	'a': 2, 
+	'b': { 
+		'a' : 2, 
+		'c': function() { } 
+	}
+})											//true
+
+identity({ 
+	'a': 2,
+	'b': { 
+		'a' : 2, 
+		'c': function() { } 
+	}
+}, { 
+	'a': 2, 
+	'b': null
+})											//false
+```
+
+
 License
 =======
 The MIT License (MIT)
