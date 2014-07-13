@@ -1,21 +1,28 @@
 identityJS
 ==========
 
-strict equality &amp; identity checking of javascript types
+strict equality &amp; identity checking of javascript types.
+
+Includes support for primitive types: 
+``Null``, ``Undefined``, ``Number``, ``String`` & ``Boolean``.
+
+As well as complex types:
+``Function``, ``Array``, ``Object`` & ``RegExp``.
 
 Usage
 =====
 ```javascript
-// strings
+
+//String
 identity('test', 'test') 					//true
 identity('test', 'fail')					//false
 		
-//boolean
+//Boolean
 identity(true, true) 						//true
 identity(false, false)						//true
 identity(true, false)						//false
 
-//function
+//Function
 identity(
 	function() { console.log('test'); }, 
 	function() { console.log('test'); }
@@ -26,7 +33,7 @@ identity(
 	function() { }
 )											//false
 
-//array
+//Array
 identity(
 	[1,2,3, [4,5,6]], 
 	[1,2,3, [4,5,6]]
@@ -37,7 +44,7 @@ identity(
 	[4,5,6]
 )											//false
 
-//object
+//Object
 identity({ 
 	'a': 2,
 	'b': { 
@@ -62,6 +69,22 @@ identity({
 	'a': 2, 
 	'b': null
 })											//false
+
+//RegExp
+identity(
+	new RegExp('.?'),
+	new RegExp('.?')
+)											//true
+
+identity(/.+?/, /.+?/)						//true
+
+identity(
+	new RegExp('\bpass'),
+	new RegExp('\bfail')
+)											//false
+
+identity(/\d/, /\D/)						//true
+
 ```
 
 
