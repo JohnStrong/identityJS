@@ -22,11 +22,6 @@ describe('Base', function() {
 		expect(identity('identity', 'identity')).toBe(true);
 	});
 
-	it('returns true when given equal Date args', function() {
-		var date = new Date();
-		expect(identity(date, date)).toBe(true);
-	})
-
 	it('returns false when given no args', function() {
 		expect(identity()).toBe(false)
 	});
