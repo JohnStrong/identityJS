@@ -36,5 +36,18 @@ describe('Number', function() {
 
 	it('returns false when given a negative and a postive real number', function() {
 		expect(identity(10, -20)).toBe(false);
-	})
+	});
+
+	it('returns false when comparing non-Number against Number', function() {
+
+		var testNumber = 0;
+
+		expect(identity(null, testNumber)).toBe(false);
+		expect(identity(undefined, testNumber)).toBe(false);
+		expect(identity('test', testNumber)).toBe(false);
+		expect(identity(function() { }, testNumber)).toBe(false);
+		expect(identity([], testNumber)).toBe(false);
+		expect(identity({}, testNumber)).toBe(false);
+		expect(identity(new RegExp('.?'), testNumber)).toBe(false);
+	});
 });
