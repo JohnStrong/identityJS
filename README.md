@@ -7,7 +7,7 @@ Includes support for primitive types:
 ``Null``, ``Undefined``, ``Number``, ``String`` & ``Boolean``.
 
 As well as complex types:
-``Function``, ``Array``, ``Object`` & ``RegExp``.
+``Function``, ``Array``, ``Object``, ``RegExp`` & ``Date``
 
 Usage
 =====
@@ -84,6 +84,13 @@ identity(
 )											//false
 
 identity(/\d/, /\D/)						//true
+
+//Date
+date1 = new Date(56, 6, 17)
+date2 = new Date(56, 6, 17)
+
+identity(date1, date2)						//true
+identity(new Date(40, 6, 17), date1)		//false
 
 ```
 
