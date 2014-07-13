@@ -83,7 +83,7 @@ identity(
 	new RegExp('\bfail')
 )											//false
 
-identity(/\d/, /\D/)						//true
+identity(/\d/, /\D/)						//false
 
 //Date
 date1 = new Date(56, 6, 17)
