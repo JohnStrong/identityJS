@@ -2,13 +2,13 @@
 describe('Object', function() {
 
 	it('returns true when given equal empty object literal args', function() {
-		expect(identity({}, {})).toBe(true);
+		expect(identity({}).against({})).toBe(true);
 	});
 
 	it('returns true when given equal empty constructor args', function() {
 		function Test() { };
 
-		expect(identity(new Test(), new Test())).toBe(true);
+		expect(identity(new Test()).against(new Test())).toBe(true);
 	});
 
 	it('returns true when given equal populated object literal args', function() {
@@ -31,14 +31,14 @@ describe('Object', function() {
 			'f': [1, 's', false, undefined]
 		};
 
-		expect(identity(literal1, literal2)).toBe(true);
+		expect(identity(literal1).against(literal2)).toBe(true);
 	});
 
 	it('returns true when given equal stateful constructor args', function() {
 		
 		function Test(a, b) { this.a = a; this.b = b;};
 
-		expect(identity(new Test(1, 2), new Test(1, 2))).toBe(true);
+		expect(identity(new Test(1, 2)).against(new Test(1, 2))).toBe(true);
 	});
 
 	it('returns true when given equal nested object literal args', function() {
@@ -63,7 +63,7 @@ describe('Object', function() {
 			}
 		};
 
-		expect(identity(nested1, nested2)).toBe(true);
+		expect(identity(nested1).against(nested2)).toBe(true);
 	});
 
 	it('returns false when given unequal object literal args', function() {
@@ -83,13 +83,13 @@ describe('Object', function() {
 			'f': [3, 2, 1]
 		};
 
-		expect(identity(literal1, literal2)).toBe(false);
+		expect(identity(literal1).against(literal2)).toBe(false);
 	});
 
 	it('returns false when given unequal stateful constructor args', function() {
 		function Test(a, b) { this.a = a; this.b = b; };
 
-		expect(identity(new Test(1, 2), new Test(2, 3))).toBe(false);
+		expect(identity(new Test(1, 2)).against(new Test(2, 3))).toBe(false);
 	});
 
 	it('returns false when members have different names & same functonality', function() {
@@ -112,20 +112,26 @@ describe('Object', function() {
 			'f': { }
 		};
 
-		expect(identity(members1, members2)).toBe(false);
+		expect(identity(members1).against(members2)).toBe(false);
 	});
 
 	it('returns false when comparing non-Object against Object', function() {
 
 		var testObject = {};
 
-		expect(identity(null, testObject)).toBe(false);
-		expect(identity(undefined, testObject)).toBe(false);
-		expect(identity(10, testObject)).toBe(false);
-		expect(identity('test', testObject)).toBe(false);
-		expect(identity(function() { }, testObject)).toBe(false);
-		expect(identity([], testObject)).toBe(false);
-		expect(identity(new RegExp('.?'), testObject)).toBe(false);
+		expect(identity(null).against(testObject)).toBe(false);
+
+		expect(identity(undefined).against(testObject)).toBe(false);
+
+		expect(identity(10).against(testObject)).toBe(false);
+
+		expect(identity('test').against(testObject)).toBe(false);
+
+		expect(identity(function() { }).against(testObject)).toBe(false);
+
+		expect(identity([]).against(testObject)).toBe(false);
+
+		expect(identity(new RegExp('.?')).against(testObject)).toBe(false);
 	});
 
 

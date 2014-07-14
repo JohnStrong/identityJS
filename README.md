@@ -14,36 +14,40 @@ Usage
 ```javascript
 
 //String
-identity('test', 'test') 					//true
-identity('test', 'fail')					//false
+identity('test').against('test') 						//true
+identity('test').against('fail')						//false
 		
 //Boolean
-identity(true, true) 						//true
-identity(false, false)						//true
-identity(true, false)						//false
+identity(true).against(true) 							//true
+identity(false).against(false)							//true
+identity(true).against(false) 							//false
 
 //Function
 identity(
-	function() { console.log('test'); }, 
 	function() { console.log('test'); }
-)											//true
+).against( 
+	function() { console.log('test'); }
+)														//true
 
 identity(
-	function() { console.log('test'); }, 
+	function() { console.log('test'); }
+).against(
 	function() { }
-)											//false
+)													 	//false
 
 //Array
 identity(
-	[1,2,3, [4,5,6]], 
 	[1,2,3, [4,5,6]]
-)											//true
+).against( 
+	[1,2,3, [4,5,6]]
+)														//true
 
 identity(
-	[1,2,3], 
+	[1,2,3]
+).against( 
 	[4,5,6]
-)											//false
-
+)														//false
+	
 //Object
 identity({ 
 	'a': 2,
@@ -51,13 +55,13 @@ identity({
 		'a' : 2, 
 		'c': function() { } 
 	}
-}, { 
+}).against({ 
 	'a': 2, 
 	'b': { 
 		'a' : 2, 
 		'c': function() { } 
 	}
-})											//true
+})														//true
 
 identity({ 
 	'a': 2,
@@ -65,32 +69,34 @@ identity({
 		'a' : 2, 
 		'c': function() { } 
 	}
-}, { 
+}).against({ 
 	'a': 2, 
 	'b': null
-})											//false
+})														//false
 
 //RegExp
 identity(
-	new RegExp('.?'),
 	new RegExp('.?')
-)											//true
+).against(
+	new RegExp('.?')
+)														//true
 
-identity(/.+?/, /.+?/)						//true
+identity(/.+?/).against(/.+?/)							//true
 
 identity(
-	new RegExp('\bpass'),
+	new RegExp('\bpass')
+).against(
 	new RegExp('\bfail')
-)											//false
+)														//false
 
-identity(/\d/, /\D/)						//false
+identity(/\d/).against(/\D/)							//false
 
 //Date
 date1 = new Date(56, 6, 17)
 date2 = new Date(56, 6, 17)
 
-identity(date1, date2)						//true
-identity(new Date(40, 6, 17), date1)		//false
+identity(date1).against(date2)							//true
+identity(new Date(40, 6, 17)).against(date1)			//false
 
 ```
 

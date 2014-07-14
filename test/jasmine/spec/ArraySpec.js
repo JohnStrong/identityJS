@@ -2,21 +2,19 @@
 describe('Array', function() {
 
 	it('returns true when given equal empty Array args', function() {
-		expect(identity([], [])).toBe(true);
+		expect(identity([]).against([])).toBe(true);
 	});
 
 	it('returns true when given equal n length empty nested Array args', function() {
-		expect(identity(
-			[[],[],[]], 
-			[[],[],[]]
-		)).toBe(true);
+		expect(identity([[],[],[]]).against([[],[],[]])).toBe(true);
 	});
 
 	it('returns true when given equal non-empty non-nested Array args', function() {
-		expect(identity(
-			[undefined, null, 1, 'test', function() { }, true],
-			[undefined, null, 1, 'test', function() { }, true]
-		)).toBe(true);
+
+		var nonNested1 = [undefined, null, 1, 'test', function() { }, true],
+		nonNested2 = [undefined, null, 1, 'test', function() { }, true];
+
+		expect(identity(nonNested1).against(nonNested2)).toBe(true);
 	});
 
 	it('returns true when given equal non-empty nested Array args', function() {
@@ -36,21 +34,19 @@ describe('Array', function() {
 			[true, false]
 		];
 
-		expect(identity(nested1, nested2)).toBe(true);
+		expect(identity(nested1).against(nested2)).toBe(true);
 	});
 
 	it('returns false when given unequal n length empty nested Array args', function() {
-		expect(identity(
-			[[],[]], 
-			[[],[],[]]
-		)).toBe(false);
+		expect(identity([[],[]]).against([[],[],[]])).toBe(false);
 	});
 
 	it('returns false when given unequal non-nested Array args', function() {
-		expect(identity(
-			[undefined, null, 1, 'pass', function() { }, true],
-			[null, undefined, 2, 'fail', function(a) { return a; }, false]
-		)).toBe(false);
+
+		var nonNested1 = [undefined, null, 1, 'pass', function() { }, true],
+		nonNested2 = [null, undefined, 2, 'fail', function(a) { return a; }, false];
+
+		expect(identity(nonNested1).against(nonNested2)).toBe(false);
 	});
 
 	it('returns false when given unequal nested Array args', function() {
@@ -71,19 +67,26 @@ describe('Array', function() {
 			[false, true]
 		];
 
-		expect(identity(nested1, nested2)).toBe(false);
+		expect(identity(nested1).against( nested2)).toBe(false);
 	});
 
 	it('returns false when comparing non-Array against Array', function() {
 
 		var testArray = [];
 
-		expect(identity(null, testArray)).toBe(false);
-		expect(identity(undefined, testArray)).toBe(false);
-		expect(identity(10, testArray)).toBe(false);
-		expect(identity('test', testArray)).toBe(false);
-		expect(identity(function() { }, testArray)).toBe(false);
-		expect(identity({}, testArray)).toBe(false);
-		expect(identity(new RegExp('.?'), testArray)).toBe(false);
+		expect(identity(null).against( testArray)).toBe(false);
+
+		expect(identity(undefined).against( testArray)).toBe(false);
+
+		expect(identity(10).against( testArray)).toBe(false);
+
+		expect(identity('test').against(testArray)).toBe(false);
+
+		expect(identity(function() { }).against(testArray)).toBe(false);
+
+		expect(identity({}).against(testArray)).toBe(false);
+
+		expect(identity(new RegExp('.?')).against(testArray)).toBe(false);
+		
 	});
 });
